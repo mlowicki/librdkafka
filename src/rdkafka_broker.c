@@ -4137,7 +4137,7 @@ static int rd_kafka_broker_produce_toppars(rd_kafka_broker_t *rkb,
         rd_bool_t multi_batch_request      = rd_true; //TODO implement feature flag to enable this
         rd_list_t batch_bufq;
 
-	rd_rkb_log(rkb, LOG_ERR, "XXXXXXXXXXXXXX");
+	rd_rkb_log(rkb, LOG_ERR, "XXXXXXXXXXXXXX", "YYYYYYYYYY");
 
         /* Round-robin serve each toppar. */
         rktp = rkb->rkb_active_toppar_next;
