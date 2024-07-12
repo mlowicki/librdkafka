@@ -4080,6 +4080,15 @@ static int rd_kafka_toppar_producer_serve(rd_kafka_broker_t *rkb,
                 return 0;
         }
 
+        if (multi_batch_request) {
+                if (rd_kafka_bufq_cnt(&rkb->rkb_waitresps) >= rkb->rkb_max_inflight) {
+                        /* already reaching max inflight request, if we produce it will be
+                           sitting in the outbuf queue. Skipping producing to increase
+                           the batching and potentially more number of batches in a request */
+                        return 0;
+                }
+        }
+
         /* Send Produce requests for this toppar, honouring the
          * queue backpressure threshold. */
         for (reqcnt = 0; reqcnt < max_requests; reqcnt++) {
